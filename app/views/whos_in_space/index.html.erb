@@ -1,0 +1,94 @@
+<div class="stars">
+  <h1 style="color: white;">Who's in Space Right Now?</h1>
+  <p style="color: white;">
+    This data is from the <a href="http://open-notify.org/Open-Notify-API/">ISS</a> API showing you who is actually in space at this very moment.
+  </p>
+
+  <div class="imageHolder a">
+    <img src="/assets/astronaut.png" alt="" />
+    <div class="caption">Name of Astronaut
+    </div>
+  </div>
+</div>
+
+<% content_for :head do %>
+  <style type="text/css">
+    .imageHolder {
+      position: relative;
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      margin: 5px;
+    }
+    .caption {
+      position: relative;
+      width: 150px;
+      height: 30px;
+      bottom: 0px;
+      color: #000000;
+      background: white;
+      text-align:center;
+      font-weight:bold;
+      line-height: 2em;
+      opacity:0.7;
+    }
+    .whos_in_space{
+      background-image: url('/assets/stars.jpg');
+    }
+     /* for the astronaut container*/
+    .iss {
+      margin: 10px;
+    }
+    .map-image {
+      z-index: 1000;
+    }
+  </style>
+
+<% end %>
+
+<% content_for :footer do %>
+  <script>
+    function makeNewPosition($container) {
+      // Get viewport dimensions (remove the dimension of the div)
+      $container = ($container || $(window))
+      var h = $container.height() - 50;
+      var w = $container.width() - 50;
+
+      var nh = Math.floor(Math.random() * h);
+      var nw = Math.floor(Math.random() * w);
+
+      return [nh, nw];
+    }
+
+    function animateDiv() {
+      var $target = $('.a');
+      var newq = makeNewPosition($target.parent());
+      var oldq = $target.offset();
+      var speed = calcSpeed([oldq.top, oldq.left], newq);
+
+      $('.a').animate({
+        top: newq[0],
+        left: newq[1]
+      }, speed, function() {
+        animateDiv();
+      });
+    };
+
+    function calcSpeed(prev, next) {
+      var x = Math.abs(prev[1] - next[1]);
+      var y = Math.abs(prev[0] - next[0]);
+
+      var greatest = x > y ? x : y;
+
+      var speedModifier = .02;
+
+      var speed = Math.ceil(greatest / speedModifier);
+
+      return speed;
+    }
+
+    $(document).ready(function() {
+      animateDiv();
+    });
+  </script>
+<% end %>
