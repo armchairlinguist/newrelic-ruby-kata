@@ -32,11 +32,10 @@ gem 'httparty'
 # Dalli and Memcachier for Memcached connections
 gem 'dalli'
 gem 'memcachier'
-# New Relic
-gem 'newrelic_rpm', '>=3.6.8'
 # Fast production server
 gem 'puma'
-
+# New Relic
+gem 'newrelic_rpm'
 group :production do
   gem 'rails_12factor'
 end
