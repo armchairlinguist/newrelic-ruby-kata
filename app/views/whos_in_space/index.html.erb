@@ -91,6 +91,18 @@
       animateDiv();
     });
   </script>
+    
+  <script type="text/javascript">
+    var root = 'http://jsonplaceholder.typicode.com';
+
+    $.ajax({
+      url: root + '/posts/1',
+      method: 'GET'
+    }).then(function(data) {
+      var post_title = data['title'];
+      $( ".caption" ).text(post_title);
+    });
+  </script>
 
 <% end %>
 
