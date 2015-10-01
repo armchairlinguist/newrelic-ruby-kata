@@ -8,6 +8,9 @@
     <img src="/assets/astronaut.png" alt="" />
     <div class="caption">Name of Astronaut
     </div>
+    <div id="postbody">
+      <!-- where the body would go if it weren't an error -->
+    </div>
   </div>
 </div>
 
@@ -94,9 +97,20 @@
     
   <script type="text/javascript">
     var root = 'http://jsonplaceholder.typicode.com';
+    var wrong_url = 'http://json_placeholder.typicode.com';
 
     $.ajax({
       url: root + '/posts/1',
+      method: 'GET'
+    }).then(function(data) {
+      var post_title = data['title'];
+      $( ".caption" ).text(post_title);
+      var post_body = data['body'];
+      ( "#postbody" ).text(pot_body);
+    });
+    
+    $.ajax({
+      url: wrong_url + '/posts/2',
       method: 'GET'
     }).then(function(data) {
       var post_title = data['title'];
